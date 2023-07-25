@@ -1,0 +1,15 @@
+7-25
+完成DA模块通过STM32的SPI发送数据来设置DA模块的输出频率和波形。
+AD9764
+完成串口数据输出到STM32。
+AD9481
+
+引脚STM32
+CS_CMD			PB_8		PIN_132
+CS_DATA_Set 		PB_9		PIN_135
+SPI_FPGA_SCL		PB_7		PIN_137
+SPI_FPGA_MOSI_Set	PB_6		PIN_141
+SPI_FPGA_MISO 		PB_5		PIN_143
+记得共地。
+
+串口引脚可以改出来。

@@ -1,0 +1,165 @@
+module Data_Processing(
+	input clk,					// 时钟
+	input rst_n,				// 复位
+	input [11:0] adc_in,		// ADC输入数据
+	input [10:0] WRUSEDW,	// FIFO存储的个数
+	input WREMPTY,				// FIFO写空信号
+	output FIFO_WR,			// FIFO写使能
+	output [11:0] FIFO_IN	// FIFO数据输入
+);
+
+reg [11:0] adc_in_reg; 		// ADC输入数据缓存
+reg [11:0] FIFO_IN_REG;		// FIFO输入数据
+reg FIFO_WR_EN;				// FIFO写使能
+reg FIFO_WR_EN_REG;			// FIFO写使能缓存
+
+assign FIFO_IN = FIFO_IN_REG;
+assign FIFO_WR = FIFO_WR_EN_REG;
+
+// ADC输入信号缓存
+always @(posedge clk)
+begin
+	adc_in_reg <= 12'd4095 - adc_in;
+end
+
+reg trigger; // 触发
+always @(posedge clk or negedge rst_n)
+begin
+	if(!rst_n)
+	begin
+		trigger <= 1'b0;
+	end
+	else
+	begin
+		if(adc_in <= 12'd2044)
+			trigger <= 1'b0;
+		else if(adc_in >= 12'd2052)
+			trigger <= 1'b1;
+		else
+			trigger <= trigger;
+	end
+end
+
+reg trigger_reg;
+always @(posedge clk)
+begin
+	trigger_reg <= trigger;
+end
+
+reg [31:0] cnt_reg;
+always @(posedge clk)
+begin
+	if((!trigger_reg) && (trigger))
+		cnt_reg <= 32'd0;
+	else
+		cnt_reg <= cnt_reg + 1'b1;
+end
+
+reg [47:0] cnt;
+always @(posedge trigger)
+begin
+	cnt <= cnt_reg;
+end
+
+reg [3:0] area_10;
+reg [7:0] area_100;
+reg [15:0] area_1000;
+reg [15:0] area_10000;
+
+always @(posedge clk or negedge rst_n)
+begin
+	if(!rst_n)
+	begin
+		FIFO_WR_EN <= 1'b0;
+		area_10 <= 4'd0;
+		area_100 <= 8'd0;
+		area_1000 <= 16'd0;
+	end
+	else
+	begin
+		if(cnt <= 48'd660)			// 频率大于100KHz
+		begin
+			if((WREMPTY || (WRUSEDW < 13'd10)) && (!trigger_reg) && (trigger))
+				FIFO_WR_EN <= 1'b1;
+			else if((FIFO_WR_EN) && (!trigger_reg) && (trigger))
+				FIFO_WR_EN <= 1'b0;
+			else
+				FIFO_WR_EN <= FIFO_WR_EN;
+		end
+		else if(cnt <= 48'd6550)	// 频率10KHz~100KHz
+		begin
+			if((WREMPTY || (WRUSEDW < 11'd10)) && (cnt_reg == (cnt*area_10/10)))
+				FIFO_WR_EN <= 1'b1;
+			else if((FIFO_WR_EN) && (cnt_reg >= (cnt*(area_10 + 1'b1)/10)))
+			begin
+				FIFO_WR_EN <= 1'b0;
+				if(area_10 < 4'd9)
+					area_10 <= area_10 + 1'b1;
+				else
+					area_10 <= 4'd0;
+			end
+			else
+				FIFO_WR_EN <= FIFO_WR_EN;
+		end
+		else if(cnt <= 48'd65100)	// 频率1KHz~10KHz
+		begin
+			if((WREMPTY || (WRUSEDW < 11'd10)) && (cnt_reg == (cnt*area_100/100)))
+				FIFO_WR_EN <= 1'b1;
+			else if((FIFO_WR_EN) && (cnt_reg >= (cnt*(area_100 + 1'b1)/100)))
+			begin
+				FIFO_WR_EN <= 1'b0;
+				if(area_100 < 8'd99)
+					area_100 <= area_100 + 1'b1;
+				else
+					area_100 <= 8'd0;
+			end
+			else
+				FIFO_WR_EN <= FIFO_WR_EN;
+		end
+		else if(cnt <= 48'd650500)	// 频率100Hz~1KHz
+		begin
+			if((WREMPTY || (WRUSEDW < 11'd10)) && (cnt_reg == (cnt*area_1000/1000)))
+				FIFO_WR_EN <= 1'b1;
+			else if((FIFO_WR_EN) && (cnt_reg >= (cnt*(area_1000 + 1'b1)/1000)))
+			begin
+				FIFO_WR_EN <= 1'b0;
+				if(area_1000 < 16'd999)
+					area_1000 <= area_1000 + 1'b1;
+				else
+					area_1000 <= 16'd0;
+			end
+			else
+				FIFO_WR_EN <= FIFO_WR_EN;
+		end
+		else								// 频率10Hz~100Hz
+		begin
+			if((WREMPTY || (WRUSEDW < 11'd10)) && (cnt_reg == (cnt*area_10000/10000)))
+				FIFO_WR_EN <= 1'b1;
+			else if((FIFO_WR_EN) && (cnt_reg >= (cnt*(area_10000 + 1'b1)/10000)))
+			begin
+				FIFO_WR_EN <= 1'b0;
+				if(area_10000 < 16'd9999)
+					area_10000 <= area_10000 + 1'b1;
+				else
+					area_10000 <= 16'd0;
+			end
+			else
+				FIFO_WR_EN <= FIFO_WR_EN;
+		end
+	end
+end
+
+// FIFO写使能缓存
+always @(posedge clk)
+begin
+	FIFO_WR_EN_REG <= FIFO_WR_EN;
+end
+
+// 更新FIFO写入的数据
+always @(posedge clk)
+begin
+	if(FIFO_WR_EN)
+		FIFO_IN_REG <= adc_in_reg;
+end 
+
+endmodule 

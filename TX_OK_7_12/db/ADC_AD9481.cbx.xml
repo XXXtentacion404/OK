@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="ADC_AD9481">
+		<CBX_INST_ENTRY INSTANCE_NAME="|ADC_AD9481|UART:U_UART|lpm_divide:Div2" CBX_FILE_NAME="lpm_divide_jhm.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ADC_AD9481|UART:U_UART|lpm_divide:Mod5" CBX_FILE_NAME="lpm_divide_m9m.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ADC_AD9481|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|altdpram:\stp_non_zero_ram_gen:attribute_mem_gen:attribute_mem|lpm_decode:wdecoder" CBX_FILE_NAME="decode_dvf.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ADC_AD9481|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_offload_buffer_mgr:\stp_non_zero_depth_offload_gen:stp_offload_buff_mgr_inst|LPM_COUNTER:status_read_pointer_counter" CBX_FILE_NAME="cntr_23j.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ADC_AD9481|UART:U_UART|lpm_divide:Mod6" CBX_FILE_NAME="lpm_divide_m9m.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ADC_AD9481|FIFO_ADC_DATA:U_FIFO_ADC_DATA|dcfifo:dcfifo_component" CBX_FILE_NAME="dcfifo_9rf1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ADC_AD9481|HS_AD9481_IN:HS_AD9481_IN_u1|fifo_16to8:fifo_16to8_inst|dcfifo:dcfifo_component" CBX_FILE_NAME="dcfifo_1gj1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ADC_AD9481|ROM_Sin:u_ROM_Sin|altsyncram:altsyncram_component" CBX_FILE_NAME="altsyncram_ln91.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ADC_AD9481|UART:U_UART|lpm_divide:Div4" CBX_FILE_NAME="lpm_divide_mhm.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ADC_AD9481|UART:U_UART|lpm_divide:Mod3" CBX_FILE_NAME="lpm_divide_m9m.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ADC_AD9481|UART:U_UART|lpm_divide:Mod7" CBX_FILE_NAME="lpm_divide_m9m.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ADC_AD9481|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|altsyncram:\stp_non_zero_ram_gen:stp_buffer_ram" CBX_FILE_NAME="altsyncram_7124.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ADC_AD9481|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_offload_buffer_mgr:\stp_non_zero_depth_offload_gen:stp_offload_buff_mgr_inst|LPM_COUNTER:status_advance_pointer_counter" CBX_FILE_NAME="cntr_cgi.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ADC_AD9481|UART:U_UART|lpm_divide:Div1" CBX_FILE_NAME="lpm_divide_mhm.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ADC_AD9481|UART:U_UART|lpm_divide:Div5" CBX_FILE_NAME="lpm_divide_jhm.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ADC_AD9481|pll_m:pll_m_inst|altpll:altpll_component" CBX_FILE_NAME="pll_m_altpll.v"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ADC_AD9481|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|altdpram:\stp_non_zero_ram_gen:attribute_mem_gen:attribute_mem|lpm_mux:mux" CBX_FILE_NAME="mux_psc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ADC_AD9481|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_offload_buffer_mgr:\stp_non_zero_depth_offload_gen:stp_offload_buff_mgr_inst|LPM_COUNTER:\adv_point_3_and_more:advance_pointer_counter" CBX_FILE_NAME="cntr_qgi.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ADC_AD9481|UART:U_UART|lpm_divide:Mod1" CBX_FILE_NAME="lpm_divide_m9m.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ADC_AD9481|UART:U_UART|lpm_divide:Mod2" CBX_FILE_NAME="lpm_divide_m9m.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ADC_AD9481|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_offload_buffer_mgr:\stp_non_zero_depth_offload_gen:stp_offload_buff_mgr_inst|LPM_COUNTER:read_pointer_counter" CBX_FILE_NAME="cntr_89j.tdf"/>
+	</PROJECT>
+</LOG_ROOT>

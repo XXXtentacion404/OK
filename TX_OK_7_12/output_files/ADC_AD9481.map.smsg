@@ -1,0 +1,2 @@
+Warning (10268): Verilog HDL information at UART_DATA.v(31): always construct contains both blocking and non-blocking assignments
+Warning (10268): Verilog HDL information at key_delay.v(26): always construct contains both blocking and non-blocking assignments
